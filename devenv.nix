@@ -27,7 +27,6 @@
   # processes.cargo-watch.exec = "cargo-watch";
 
   # https://devenv.sh/services/
-  services.mysql.enable = true;
 
   # https://devenv.sh/scripts/
   scripts.hello.exec = ''
