@@ -3,9 +3,8 @@
 {
   # https://devenv.sh/basics/
   env.GREET = "devenv";
-
   # https://devenv.sh/packages/
-  packages = [ pkgs.git ];
+  packages = [ pkgs.git pkgs.vscode ];
 
   # https://devenv.sh/languages/
   languages = {
@@ -16,13 +15,19 @@
     typescript = {
       enable = true;
     };
+    python = {
+      enable = true;
+      uv = {
+        enable = true;
+      };
+    };
   };
 
   # https://devenv.sh/processes/
   # processes.cargo-watch.exec = "cargo-watch";
 
   # https://devenv.sh/services/
-  # services.postgres.enable = true;
+  services.mysql.enable = true;
 
   # https://devenv.sh/scripts/
   scripts.hello.exec = ''
