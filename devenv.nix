@@ -4,7 +4,7 @@
   # https://devenv.sh/basics/
   env.GREET = "devenv";
   # https://devenv.sh/packages/
-  packages = [ pkgs.git pkgs.vscode ];
+  packages = with pkgs; [ git vscode libpkgconf pkgconf libmysqlclient];
 
   # https://devenv.sh/languages/
   languages = {
