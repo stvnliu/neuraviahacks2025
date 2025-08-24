@@ -1,0 +1,42 @@
+services:
+  api:
+    build: api/
+    depends_on:
+      db:
+        condition: service_healthy
+        required: true
+    container_name: fast-api
+    environment:
+      DATABASE_URL: mysql://fastapi:24tskg20r4@db:3306/healthwatch
+      PORT: 8000
+    ports:
+      - "8000:8000"
+    restart: no
+    secrets:
+      - sql-password
+  frontend:
+    build: web/
+  db:
+    image: mariadb
+    restart: no
+    secrets:
+      - sql-password
+    environment:
+      MARIADB_ROOT_PASSWORD: 9uh67fg
+      MARIADB_USER: fastapi
+      MARIADB_PASSWORD: 24tskg20r4
+      MARIADB_DATABASE: healthwatch
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      # - MARIADB_ROOT_PASSWORD_FILE=/run/secrets/db-password
+    volumes:
+      - db-data:/var/lib/mysql
+volumes:
+  db-data:
+secrets:
+  sql-password:
+    file: db_password.txt
